@@ -47,7 +47,7 @@ Note: If you choose the second option, make sure port 3000 is not allocated alre
     ```
 3. To use the API routes, go to http://localhost:3000/docs#. 
    Routes:
-   1. **__MeritOrder Request_**: POST `/productionplan`:  http://localhost:3000/productionplan
+   1. **_Merit Order Effect Request_**: POST `/productionplan`:  http://localhost:3000/productionplan
    2. **___healthcheck_**: GET `/_healthcheck`:  http://localhost:3000/_healthcheck
 
    
