@@ -6,7 +6,7 @@ from fastapi import FastAPI, status, Depends
 from merit_order_api.dependencies import get_settings
 from merit_order_api.v1_routes import api_router as v1
 
-V1_PREFIX = "/v1"
+
 dir_name = os.path.dirname(__file__)
 settings = get_settings()
 
@@ -21,8 +21,7 @@ def get_application():
 
 app = get_application()
 app.include_router(v1.router,
-                   dependencies=[Depends(get_settings)],
-                   prefix=V1_PREFIX, tags=["powerplant-coding-challenge"])
+                   dependencies=[Depends(get_settings)], tags=["powerplant-coding-challenge"])
 
 
 @app.get("/_healthcheck", status_code=status.HTTP_200_OK)

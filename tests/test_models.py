@@ -5,7 +5,12 @@ from pydantic import ValidationError
 
 from merit_order_api.models import PayloadModel, Fuels, Powerplant, PowerplantSelection
 
-# TODO: unittests of api route calls (mocked) + functional tests
+fuel_payload_json = {
+    "gas(euro/MWh)": 13.4,
+    "kerosine(euro/MWh)": 50.8,
+    "co2(euro/ton)": 20,
+    "wind(%)": 0
+}
 
 
 class TestPayloadModel(unittest.TestCase):
@@ -50,5 +55,21 @@ class TestPayloadModel(unittest.TestCase):
                 ]
             )
 
+    def test_wind_percent_valid(self):
+        wind_values = [0, 50, 100]
 
+        for wind_value in wind_values:
+            with self.subTest(wind=wind_value):
+                fuel_payload_json["wind(%)"] = wind_value
+                fuels = Fuels(**fuel_payload_json)
+                self.assertEqual(fuels.wind_percent, wind_value)
+
+    def test_wind_percent_invalid(self):
+        """ Test with invalid wind percentages """
+        wind_values = [-1, 101]
+        for wind_value in wind_values:
+            fuel_payload_json["wind(%)"] = wind_value
+            with self.subTest(wind=wind_value):
+                with self.assertRaises(ValueError):
+                    Fuels(**fuel_payload_json)
 

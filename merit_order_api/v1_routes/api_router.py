@@ -12,6 +12,6 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
-@router.post("/merit-order", status_code=201, response_model=List[PowerplantSelection])
+@router.post("/productionplan", status_code=201, response_model=List[PowerplantSelection])
 def merit_order_request(payload: PayloadModel):
     return calculate_production_plan(payload=payload)
